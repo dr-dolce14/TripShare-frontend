@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import TripItem from './TripItem'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+  state = {trips: []}
+
+  componentDidMount() {
+    fetch("http://localhost:3000/api/v1/trips") 
+    .then(resp => resp.json())
+    .then(data => this.setState({trips: data}))
+  } 
+
+  renderTrips = () => {
+    return this.state.trips.map((tripObj) => <TripItem key={tripObj.id} trip={tripObj} />)
+  }
+
+  render() {
+    return (
+      <div>{this.renderTrips()}</div>
+    )
+  }
+
 }
 
 export default App;
