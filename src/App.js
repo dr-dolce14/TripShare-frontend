@@ -17,6 +17,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("HI PAOLA")
     return (
       // <div>{this.renderTrips()}</div>
       <UserContainer />
